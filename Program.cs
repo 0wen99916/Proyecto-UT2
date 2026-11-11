@@ -7,6 +7,12 @@ decimal precioServicio = 0;
 bool extraInforme = false;
 bool extraCronologico = false;
 bool extraDocumental = false;
+int opcionModalidad = 0;
+decimal precioExtras = 0;
+decimal subtotal = 0;
+decimal descuento = 0;
+decimal suplemento = 0;
+decimal total = 0;
 
 do
 {
@@ -125,7 +131,77 @@ do
                 {
                     Console.WriteLine("Opcion incorrecta");
                 }
+
             } while (opcionExtra != 0);
+
+            Console.WriteLine();
+            Console.WriteLine("MODALIDAD DE CONTRATACION");
+            Console.WriteLine("1. Normal (Sin suplemento)");
+            Console.WriteLine("2. Urgente (20% adicional)");
+
+            do
+            {
+                Console.WriteLine("Seleccion una modalidad");
+                opcionModalidad = int.Parse(Console.ReadLine());
+
+                if (opcionModalidad == 1)
+                {
+                    Console.WriteLine("Modalidad normal seleccionada");
+                }
+                else if (opcionModalidad == 2)
+                {
+                    Console.WriteLine("Modalidad urgente seleccionada");
+                }
+                else
+                {
+                    Console.WriteLine("Opcion Incorrecta. Intentalo de nuevo");
+                }
+            } while (opcionModalidad != 1 && opcionModalidad != 2);
+
+            Console.WriteLine();
+            Console.WriteLine("CALCULO IMPORTE");
+            precioExtras = 0;
+
+            if (extraInforme)
+            {
+                precioExtras = precioExtras + 25;
+            }
+
+            if (extraCronologico)
+            {
+                precioExtras = precioExtras + 35;
+            }
+
+            if (extraDocumental)
+            {
+                precioExtras = precioExtras + 20;
+            }
+
+            subtotal = precioServicio + precioExtras;
+
+            descuento = 0;
+            if (subtotal > 200)
+            {
+                descuento = subtotal * 0.10m;
+            }
+
+            total = subtotal - descuento;
+            suplemento = 0;
+
+            if (opcionModalidad == 2)
+            {
+                suplemento = total * 0.20m;
+            }
+
+            total = total + suplemento;
+
+            Console.WriteLine($"Precio de servicio: {precioServicio} euros");
+            Console.WriteLine($"Precio de los extras: {precioExtras} euros");
+            Console.WriteLine($"Subtotal: {subtotal} euros");
+            Console.WriteLine($"Descuento: {descuento} euros");
+            Console.WriteLine($"Suplemento urgente: {suplemento} euros");
+            Console.WriteLine($"TOTAL A PAGAR: {total} euros");
+
         }     
             
         else if (opcion == 2)
