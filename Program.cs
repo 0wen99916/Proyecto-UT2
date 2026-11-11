@@ -4,6 +4,9 @@ string nombreExpediente = "";
 int opcionServicio = 0;
 string nombreServicio = "";
 decimal precioServicio = 0;
+bool extraInforme = false;
+bool extraCronologico = false;
+bool extraDocumental = false;
 
 do
 {
@@ -66,8 +69,65 @@ do
                     Console.WriteLine("Opcion incorrecta. Intentalo denuevo");
                 }
             } while (opcionServicio < 1 || opcionServicio > 3);
-        }
 
+            Console.WriteLine();                                                  
+            Console.WriteLine("SERVICIOS ADICIONALES");                           
+            Console.WriteLine("____________________________________");            
+            Console.WriteLine("1. Informe detallado - 25 euros");                 
+            Console.WriteLine("2. Clasificacion cronologica de evidencias - 35"); 
+            Console.WriteLine("3. Revision documental adicional - 20 euros");     
+            Console.WriteLine("0. Finalizar seleccion de servicios extras");     
+
+            int opcionExtra = -1;
+            do
+            {
+                Console.WriteLine("Selecciona un extra: ");
+
+                opcionExtra = int.Parse(Console.ReadLine());
+
+                if (opcionExtra == 1)
+                {
+                    if (!extraInforme)
+                    {
+                        extraInforme = true;
+                        Console.WriteLine("Informe detallado añadido");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Este extra ya ha sido contratado");
+                    }
+                }
+                else if (opcionExtra == 2)
+                {
+                    if (!extraCronologico)
+                    {
+                        extraCronologico = true;
+                        Console.WriteLine("Clasificacion cronologica añadida");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Este extra ya ha sido contratado");
+                    }
+                }
+                else if (opcionExtra == 3)
+                {
+                    if (!extraDocumental)
+                    {
+                        extraDocumental = true;
+                        Console.WriteLine("Revision documental añadida");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Este extra ya ha sido contratado");
+                    }
+                }
+                else if (opcionExtra != 0)
+                {
+                    Console.WriteLine("Opcion incorrecta");
+                }
+            } while (opcionExtra != 0);
+        }     
+            
         else if (opcion == 2)
         {
             Console.WriteLine("Estadistica de la agencia");
