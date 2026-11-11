@@ -15,6 +15,10 @@ decimal suplemento = 0;
 decimal total = 0;
 decimal dineroEntregado = 0;
 decimal cambio = 0;
+int numeroExpediente = 0;
+decimal recaudacionTotal = 0;
+decimal importeMaximo = 0;
+string clienteMayorImporte ="";
 
 do
 {
@@ -34,10 +38,13 @@ do
     
         if (opcion == 1)
         {
+            extraInforme = false;
+            extraCronologico = false;
+            extraDocumental = false;
             Console.WriteLine("InvestiCore . NUEVO EXPEDIENTE");
             Console.WriteLine("-------------------------------------");
             Console.Write("Introduce el nombre del cliente: ");
-            nombreCliente = Console.ReadLine();
+            nombreCliente = Console.ReadLine() ?? "";
             Console.Write("Introduce el nombre del expediente: ");
             nombreExpediente = Console.ReadLine();
             Console.WriteLine();
@@ -219,6 +226,15 @@ do
             } while (dineroEntregado < total);
 
             cambio = dineroEntregado - total;
+            numeroExpediente++;
+
+            recaudacionTotal = recaudacionTotal + total;
+            if (numeroExpediente == 1 || total > importeMaximo)
+            {
+                importeMaximo = total;
+                clienteMayorImporte = nombreCliente;
+            }
+
             Console.WriteLine("Pago realizado correctamente");
             Console.WriteLine($"Cambio a devolver: {cambio:F2} euros");
 
@@ -268,10 +284,25 @@ do
             Console.WriteLine("          GRACIAS POR SU CONFIANZA");
             Console.WriteLine("==============================================");
         }     
-            
         else if (opcion == 2)
         {
-            Console.WriteLine("Estadistica de la agencia");
+            Console.WriteLine();
+            Console.WriteLine("InvestiCore - ESTADISTICAS");
+            Console.WriteLine("=============================");
+            if (numeroExpediente == 0)
+            {
+                Console.WriteLine("Todavia no hay expedientes cobrados");
+            }
+            else
+            {
+                decimal importeMedio = recaudacionTotal / numeroExpediente;
+                Console.WriteLine($"Expedientes completados: {numeroExpediente}");
+                Console.WriteLine($"Recaudacion total: {recaudacionTotal:F2} euros");
+                Console.WriteLine($"Importe medio: {importeMedio:F2} euros");
+                Console.WriteLine($"Expediente mas caro: {importeMaximo:F2} euros");
+                Console.WriteLine($"Cliente: {clienteMayorImporte}");
+            }
+            Console.WriteLine("================================================");
         }
         else if (opcion == 3)
         {
