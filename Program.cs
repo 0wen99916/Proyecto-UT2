@@ -13,6 +13,8 @@ decimal subtotal = 0;
 decimal descuento = 0;
 decimal suplemento = 0;
 decimal total = 0;
+decimal dineroEntregado = 0;
+decimal cambio = 0;
 
 do
 {
@@ -202,6 +204,69 @@ do
             Console.WriteLine($"Suplemento urgente: {suplemento} euros");
             Console.WriteLine($"TOTAL A PAGAR: {total} euros");
 
+            Console.WriteLine();
+            Console.WriteLine("COBRO EXPEDIENTE");
+
+            do
+            {
+                Console.Write($"El importe total es {total:F2} euros. Introduce el dinero entregado: ");
+                dineroEntregado = decimal.Parse(Console.ReadLine());
+
+                if (dineroEntregado < total)
+                {
+                    Console.WriteLine("DInero insuficiente. Introduce una cantidad mayor o igual al total");
+                }
+            } while (dineroEntregado < total);
+
+            cambio = dineroEntregado - total;
+            Console.WriteLine("Pago realizado correctamente");
+            Console.WriteLine($"Cambio a devolver: {cambio:F2} euros");
+
+            Console.WriteLine();
+            Console.WriteLine("==========================");
+            Console.WriteLine("InvestiCore - Justificante");
+            Console.WriteLine("==========================");
+            Console.WriteLine($"Cliente: {nombreCliente}");
+            Console.WriteLine($"Expediente: {nombreExpediente}");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine($"Servicio contratado: {nombreServicio}");
+            Console.WriteLine($"Servicio contratado: {precioServicio:F2} euros");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("SERVICIOS ADICIONALES");
+
+            if (extraInforme)
+            {
+                Console.WriteLine("Informe detallado: 25 euros");
+            }
+            if (extraCronologico)
+            {
+                Console.WriteLine("Clasificacion cronologica: 35 euros");
+            }
+            if (extraDocumental)
+            {
+                Console.WriteLine("Revision documental adicional: 20 euros");    
+            }
+            Console.WriteLine("--------------------------------");
+
+            if (opcionModalidad == 1)
+            {
+                Console.WriteLine("Modalidad: Normal");
+            }
+            else
+            {
+                Console.WriteLine("Modalidad: Urgente");
+            }
+
+            Console.WriteLine($"Subtotal: {subtotal:F2} euros");
+            Console.WriteLine($"Descuento: {descuento:F2} euros");
+            Console.WriteLine($"Suplemento: {suplemento:F2} euros");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine($"TOTAL: {total:F2} euros");
+            Console.WriteLine($"Dinero entregado: {dineroEntregado:F2} euros");
+            Console.WriteLine($"Cambio: {cambio:F2} euros");
+            Console.WriteLine("==============================================");
+            Console.WriteLine("          GRACIAS POR SU CONFIANZA");
+            Console.WriteLine("==============================================");
         }     
             
         else if (opcion == 2)
